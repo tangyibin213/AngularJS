@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>AngularJS 自定义指令</title>
+</head>
+<body ng-app="App">
+	<div tag></div>
+	<script src="../libs/angular.min.js"></script>
+	<script type="text/javascript">
+		var App = angular.module('App',[]);
+		App.directive('tag',function(){// 通过模块实例对象的directive方法可以自定义指令
+			return{// 返回一个对象，这个对象就是自定义指令相关的内容
+				// E element 元素
+				// A attribute 标签
+				// C class 类
+				// M mark replace 必须为true
+				restrict:'EA',
+				template:'<h1>nihao</h1>',
+				templateUrl: './list.html'//必须用服务区打开方法
+			}
+		})
+	</script>
+</body>
+</html>

@@ -3,6 +3,7 @@
 <head>
 	<meta charset="UTF-8">
 	<title>Document</title>
+	<!-- <link rel="stylesheet" ng-href="{{link}}"> -->引用其他文件
 	<style>
 		.my1 {
 			color: red;
@@ -13,8 +14,8 @@
 		}
 	</style>
 </head>
-<body ng-app='App'>
-	<ul ng-controller='DemoController'>
+<body ng-app='App'><!-- 使用app模版 -->
+	<ul ng-controller='DemoController'><!-- 使用app模版里面的DemoController控制器 -->
 		<li ng-bind='name'>用于绑定</li>
 		<li>{{name}}也是用于绑定</li>
 		<li ng-show="1">ng-show用于显示或者隐藏内容</li>
@@ -36,8 +37,7 @@
 <script src="../libs/angular.min.js"></script>
 	<script>
 		
-		// 创建模块
-		var App = angular.module('App', []);
+		var App = angular.module('App', []);// 创建模块,第二个参数代表依赖与那个模块
 		App.controller('DemoController', ['$scope', function ($scope) {
 			$scope.name = 'itcast';
 			$scope.path = './images/author.jpg';
