@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<style>
+		.my1 {
+			color: red;
+		}
+
+		.my2 {
+			color: blue;
+		}
+	</style>
+</head>
+<body ng-app='App'>
+	<ul ng-controller='DemoController'>
+		<li ng-bind='name'>用于绑定</li>
+		<li>{{name}}也是用于绑定</li>
+		<li ng-show="1">ng-show用于显示或者隐藏内容</li>
+		<li ng-hide='0'>ng-hide用于显示或隐藏内容，当值true时候隐藏</li>
+		<li ng-if='1'>ng-if用于判断元素是否存在，当值为true时候存在</li>
+		<li><img ng-src ='{{path}}'></li>
+		<li ng-class='{.my1:true,.my2:true}'></li>
+		<li><input type="checkbox" ng-checked="1">男</li>
+		<li>
+			<select name="" id="">
+				<option value="">河北省</option>
+				<option value="">山东省</option>
+				<option value="" ng-selected="1">北京市</option>
+			</select>
+		</li>
+	</ul>
+	
+</body>
+<script src="../libs/angular.min.js"></script>
+	<script>
+		
+		// 创建模块
+		var App = angular.module('App', []);
+		App.controller('DemoController', ['$scope', function ($scope) {
+			$scope.name = 'itcast';
+			$scope.path = './images/author.jpg';
+			$scope.link = './main.css';
+		}]);
+
+	</script>
+</html>
