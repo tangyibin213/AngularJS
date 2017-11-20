@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>AngularJS 作用域</title>
+</head>
+<body ng-app='App' ng-init="name = '顺治'">
+	<div class="parent" ng-controller="ParentCtrller">
+		<h1>{{name}}</h1>
+		<div class="child" ng-controller="ChildCtrller">
+			<h2>{{name}}</h2>
+		</div>
+	</div>
+	<script src="../libs/angular.min.js"></script>
+	<script type="text/javascript">
+		var App = angular.module('App',[]);
+		App.controller('ParentCtrller', ['$scope', function($scope){
+			// $scope.name = '康熙';如果这里没有设置值，则是顺治
+			//原因div parent是父亲控制器是body,body的name 是顺治
+		}]);
+
+		App.controller('ChildCtrller', ['$scope', function($scope){
+			$scope.name = '雍正';//同理如果这里不设置值，那么上面的div使用
+			//是父控制器的name,活着是祖先的控制器的name
+		}])
+	</script>
+</body>
+</html>
