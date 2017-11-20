@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>angularJS 过滤器</title>
+</head>
+<body ng-app="App">
+	<!-- 在AngularJS中使用过滤器格式化展示数据，在“{{}}”中使用“|”来调用过滤器，使用“:”传递参数。 -->
+	<ul ng-controller="DemoController">
+		<!-- currency将数值格式化为货币格式 -->
+		<li>{{price|currency:'￥'}}</li>
+		<!-- date日期格式化，年（y）、月（M）、日（d）、星期（EEEE/EEE）、时（H/h）、分（m）、秒（s）、毫秒（.sss），也可以组合到一起使用 -->
+		<li>{{now|date:'yyyy/MM/dd hh:mm:ss'}}</li>
+		<!-- filter在给定数组中选择满足条件的一个子集，并返回一个新数组，其条件可以是一个字符串、对象、函数 -->
+		<li>{{items|filter:'s'}}</li>
+		<li>{{students|filter:{age: 16} }}</li>
+		<!-- json将Javascrip对象转成JSON字符串。 -->
+		<li >{{students|json}}</li>
+		<!-- limitTo取出字符串或数组的前（正数）几位或后（负数）几位 -->
+		<li >{{items|limitTo:-1}}</li>
+		<li >{{str|uppercase|limitTo:3}}</li>
+		<!-- lowercase将文本转换成小写格式 -->
+		<li >{{str|lowercase}}</li>
+		<!-- number数字格式化，可控制小位位数 -->
+		<li >{{num|number:2}}</li>
+		<!-- orderBy对数组进行排序，第2个参数可控制方向 -->
+		<li >{{items|orderBy:'':true}}</li>
+		<li >{{students|orderBy:'age':false}}</li>
+	</ul>
+	<script src="../libs/angular.min.js"></script>
+	<script type="text/javascript">
+		var App = angular.module('App',[]);
+		App.controller('DemoController', ['$scope', function($scope){
+			$scope.price = 11.11;
+			$scope.now = new Date();
+			$scope.items =['items','css','js'];
+			$scope.students = [
+				{name:'小红',age : 16},
+				{name:'小明',age : 16},
+				{name:'小米',age : 20}
+			]
+			$scope.str = 'hello angular';
+			$scope.num = '10.2345';
+		}]);
+	</script>
+	
+</body>
+</html>
