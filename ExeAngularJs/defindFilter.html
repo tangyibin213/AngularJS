@@ -1,0 +1,29 @@
+<head>
+	<meta charset="UTF-8">
+	<title>AngularJS 自定义指令</title>
+</head>
+<body ng-app="App">
+	
+	<div ng-controller="DemoController">
+		<h4>{{info|demo:123}}</h4>
+	</div>
+
+	<script src="../libs/angular.min.js"></script>
+	<script>
+		
+		var App = angular.module('App', []);
+		App.filter('demo', function () {//这个方法是请求模块回调方法，可以不用管
+			//Demo 自定义过滤器,参数1就是上面info,参数2就是上面的123
+			return function (input,par) {
+				return 'hello ' + input;
+			}
+		});
+		// 自定义控制器的
+		App.controller('DemoController', ['$scope', function ($scope) {
+			$scope.info = 'my name is ';
+
+		}]);
+
+	</script>
+</body>
+</html>
