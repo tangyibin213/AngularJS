@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>AngularJS 定时器</title>
+</head>
+<body ng-app="App">
+	<div ng-controller="DemoController">
+		<ul>
+			<li>{{msg}}</li>
+			<li>{{now|date:'yyy-MM-dd hh:mm:ss'}}</li>
+			<li><button ng-click="stop()">stop</button></li>
+		</ul>
+	</div>
+	<script src="../libs/angular.min.js"></script>
+	<script >
+		/**
+		* App Module
+		*
+		* Description
+		*/
+		var App = angular.module('App', []);
+
+		App.controller('DemoController', ['$scope', '$timeout', 
+			'$interval',function ($scope, $timeout, $interval) {
+
+
+			$timeout(function () {
+				$scope.msg = '执行了';
+
+			}, 3000);
+
+			var timer = $interval(function () {
+				$scope.now = new Date;
+
+			}, 1000);
+
+			$scope.stop = function () {
+				$interval.cancel(timer);
+			};
+		}])
+	</script>
+</body>
+</html>

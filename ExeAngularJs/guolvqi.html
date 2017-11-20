@@ -13,7 +13,7 @@
 		<li>{{now|date:'yyyy/MM/dd hh:mm:ss'}}</li>
 		<!-- filter在给定数组中选择满足条件的一个子集，并返回一个新数组，其条件可以是一个字符串、对象、函数 -->
 		<li>{{items|filter:'s'}}</li>
-		<li>{{students|filter:{age: 16} }}</li>
+		<li>{{students|filter:{age: 16} }}</li><!--filter:{age: 16} } 注意这里要多一个空格 -->
 		<!-- json将Javascrip对象转成JSON字符串。 -->
 		<li >{{students|json}}</li>
 		<!-- limitTo取出字符串或数组的前（正数）几位或后（负数）几位 -->
