@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>AngularJS 自定义服务</title>
+</head>
+<body ng-app="App">
+	<div ng-controller="DemoController">
+	</div>
+	<script src="../libs/angular.min.js"></script>
+	<script>
+		var App =  angular.module('App', []);
+		App.controller('DemoController', ['$scope', '$http', 'format', function ($scope, $http, $format) {
+			var data = {
+				name: 'itcast',
+				age: 10
+			};
+			console.log($format.myformat(data));// 测试自定义的服务
+
+			$http({
+				url: 'example.php',
+				method: 'post',
+				headers: {
+					'Content-Type': 'application/x-www-form-urlencoded'
+				},
+				data: $format.myformat(data)
+			}).success(function (info) {
+				console.log(info);// info 
+			});
+
+		}]);
+
+		// 提供了3种方法实现自定义服务, factory、service、value
+		App.factory('format', [function () {
+			function format(arg) {// 定义服务具体功能
+				var s = '';
+				for(var key in arg) {
+					s += key + '=' + arg[key] + '&';
+				}
+				s = s.slice(0, -1);
+				return s;
+			}
+			function sayHello() {// 具体功能
+				alert('你好')
+			}
+			return {// 返回出去以被调用对象，包含多个方法
+				myformat: format,
+				mysayHello: sayHello
+			}
+		}]);
+
+	</script>
+</body>
+</html>
