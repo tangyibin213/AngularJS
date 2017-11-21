@@ -18,11 +18,12 @@
 
 		// 推断式依赖注入
 		App.controller('DemoController', function ($scope, $http) {
+			//没有说明需要什么模块，由回调函数的参数，说明需要什么模块（不推荐使用）
 
 		});
 		// 行内式注入
 		App.controller('DemoController', ['$scope', '$http', function (abc, bcd) {
-
+			//说明需要什么模块。由回调函数来获取，所以回调函数参数名字可以随意
 			abc.name = '依赖注入';
 
 		}]);

@@ -14,20 +14,15 @@
 	</div>
 	<script src="../libs/angular.min.js"></script>
 	<script >
-		/**
-		* App Module
-		*
-		* Description
-		*/
 		var App = angular.module('App', []);
 
 		App.controller('DemoController', ['$scope', '$timeout', 
 			'$interval',function ($scope, $timeout, $interval) {
-
+			//请求'$scope', '$timeout', '$interval'
+			//从回调函数中获取
 
 			$timeout(function () {
 				$scope.msg = '执行了';
-
 			}, 3000);
 
 			var timer = $interval(function () {

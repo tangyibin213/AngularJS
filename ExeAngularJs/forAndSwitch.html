@@ -12,7 +12,13 @@
 		</ul> -->
 
 		<ul>
+			<!-- 这里等于循环穿件li元素 -->
+			<!-- for(var item in items){
+				var newLi  = docoment.createElement('li');
+				ul.append(newLi);
+			} -->
 			<li ng-repeat="item in items" ng-switch="item">
+				<!-- span 条件满足时候会显示，不满足时候，会别注视 -->
 				<span ng-switch-when="css">{{item}}</span>
 			</li>
 		</ul>

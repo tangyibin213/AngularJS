@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>AngularJS 自定义指令</title>
+</head>
+<body ng-app="App">
+	<div tag></div>
+	<script src="../libs/angular.min.js"></script>
+	<!-- asdf -->
+	<script type="text/javascript">
+		var App = angular.module('App',[]);
+		App.directive('tag',function(){// 通过模块实例对象的directive方法可以自定义指令
+			// 注意这里tag名字不能有大写字母!!!!!
+			return{// 返回一个对象，这个对象就是自定义指令相关的内容
+				// E element 属性指令 ，<div tag></div>tag 就成为了其中一个属性
+				// A attribute 标签,如果是标签指令<tag></tag>
+				// C class class指令，如果是使用class,使用tag就是class
+				// M 注释指令，所使用的tag,就会变成注视<!-- tag -->
+				//mark replace 必须为true
+
+				restrict:'EA',
+
+				//replace是否替换（M注释必须为true才能解析）
+				// true: <div tag>nihao </div>
+				// false: <div tag>
+				// 			<div>nihao</div>
+				// 	      </div>
+
+				template:'<h1>nihao</h1>'
+				//template内容，除此之外还有templateUrl，指定一个html模板文件。\
+				//如果是html模版则需要webserver打开，因为需要webserver发送请求
+
+			}
+		})
+	</script>
+</body>
+</html>
