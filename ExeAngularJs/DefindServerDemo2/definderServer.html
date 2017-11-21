@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="App">
+<head>
+	<meta charset="UTF-8">
+	<title>AngularJS 自定义服务</title>
+</head>
+<body>
+	<div ng-controller="DemoController">
+		<h1>{{now}}</h1>
+	</div>
+	<script src="../../libs/angular.min.js"></script>
+	<script>
+		var App = angular.module('App', []);
+		App.controller('DemoController', ['$scope', 'showTime', function ($scope, $showTime) {
+			$scope.now = $showTime.Now();
+			$showTime.SayHello();
+		}]);
+
+		// 自定义服务显示日期
+		// 提供了3种方法实现自定义服务
+		// factory、service、value
+		App.service('showTime', ['$filter', function ($filter) {
+			var now = new Date;
+			var dateFilter = $filter('date');//创建一个过滤器
+
+			//下面这个方式也是可以的实现，直接在showTime上面添加方法
+			// this.now = function () {// 向对象上添加具体方法
+			// 	return dateFilter(now, 'yyyy/MM/dd hh:mm:ss');//过滤时间
+			// }
+			// this.sayHello = function () {// 添加具体方法
+			// 	alert('你好');
+			// }
+
+			//下面这个方法是把方法返回回去
+			function nowFuntion(argument) {
+				return dateFilter(now, 'yyyy/MM/dd hh:mm:ss');//过滤时间
+			};
+			function sayHello(){
+				alert('你好');
+			}
+			return{
+				Now:nowFuntion,
+				SayHello:sayHello
+			}
+		}]);
+	</script>
+</body>
+</html>
