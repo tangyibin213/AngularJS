@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="App">
+<head>
+	<meta charset="UTF-8">
+	<title>AngularJS 模块加载</title>
+</head>
+<body>
+	<div ng-controller="DemoController">
+		{{name}}
+	</div>
+	<script src="../libs/angular.min.js"></script>
+	<script>
+		var App = angular.module('App', []);
+		// 直接运行$http、$rootScope服务，run不以来控制器,运行ruan可以没有控制器
+		// $rootScope根作域
+		// App.controller('DemoController', ['$scope', '$http', 'format', function ($scope, $http, $format) { 注入式运行
+		App.run(['$http', '$rootScope', function ($http, $rootScope) {
+			$http({// 直接调用$http
+				url: 'example.php',
+				method: 'get'
+			});
+			$rootScope.name = '祖宗';// 根作用域
+		}]);
+		App.controller('DemoController', ['$scope', function($scope) {
+			$scope.name = '后代';//注入式依赖控制器，如果没有控制器，则不能生效
+		}]) 
+	</script>
+</body>
+</html>
