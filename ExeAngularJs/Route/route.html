@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="App">
+<head>
+	<meta charset="UTF-8">
+	<title>AngularJS 路由和多视图</title>
+	<style>
+		body {
+			padding: 0;
+			margin: 0;
+			background-color: #F7F7F7;
+			font-family: Arial;
+		}
+
+		.wrapper {
+			max-width: 980px;
+			margin: 50px auto;
+		}
+
+		ul {
+			padding: 0;
+			margin: 0;
+			overflow: hidden;
+			list-style: none;
+			background-color: #000;
+			border-radius: 4px;
+		}
+
+		li {
+			float: left;
+			width: 120px;
+			height: 40px;
+			text-align: center;
+			line-height: 40px;
+			font-size: 18px;
+		}
+
+		li.active {
+			background-color: #333;
+		}
+
+		li a {
+			display: block;
+			color: #FFF;
+			text-decoration: none;
+		}
+
+		.content {
+			margin-top: 30px;
+			font-size: 24px;
+			padding: 0 20px;
+		}
+	</style>
+</head>
+<body>
+	<div class="wrapper">
+		<!-- 导航菜单 -->
+		<ul>
+			<li class="active">
+				<a href="#/index">Index</a>
+			</li>
+			<li>
+				<a href="#/introduce">Introduce</a>
+			</li>
+			<li>
+				<a href="#/contact">Contact Us</a>
+			</li>
+			<li>
+				<a href="#/list">List</a>
+			</li>
+		</ul>
+		<div class="content"><!-- 内容 -->
+			<div ng-view></div><!-- 占位符 -->
+		</div>
+
+	</div>
+	<!-- AngularJS核心框架 -->
+	<script src="../libs/angular.min.js"></script>
+	<!-- 路由模块理解成插件 -->
+	<script src="../libs/angular-route.js"></script>
+	<script>
+		// 在后端开发中通过URL地址可以实现页面（视图）的切换，但是AngularJS是一个纯前端MVC框架，在开发单页面应用时，所有功能都在同一页面完成，所以无需切换URL地址（即不允许产生跳转），但Web应用中又经常通过链接（a标签）来更新页面（视图），当点击链接时还要阻止其向服务器发起请求，通过锚点（页内跳转）可以实现这一点。
+		//准确地说，这应该叫对 hashchange 事件的处理吧。
+		// 就是指 URL 中的锚点部分发生变化时，触发预先定义的业务逻辑。比如现在是 /test#/x ，锚点部分的值为 # 后的 /x ，它就对应了一组处理逻辑。当这部分变化时，比如变成了 /test#/t ，这时页面是不会刷新的，但是它可以触发另外一组处理逻辑，来做一些事，也可以让页面发生变化。
+		// 这种机制对于复杂的单页面来说，无疑是一种强大的业务切分手段。就算不是复杂的单页面应用，在普通页面上善用这种机制，也可以让业务逻辑更容易控制。
+		// ng 提供了完善的锚点路由功能，虽然目前我觉得相当重要的一个功能还有待完善（后面会说），但目前这功能的几部分内容，已经让我思考了很多种可能性了。
+		var App = angular.module('App', ['ngRoute']);// 依赖ngRoute模块
+
+		// 需要对路由模块进行配置，使其正常工作
+		App.config(['$routeProvider', function ($routeProvider) {
+			$routeProvider.when('/index', {
+				template: '<h1>index Pages!</h1>',
+				// templateUrl: './abc.html'
+			})
+			.when('/introduce', {
+				template: '<h1>introduce Pages!</h1>'
+			})
+			.when('/contact', {
+				template: '<h1>contact US Pages!</h1>',
+				// templateUrl: './contact.html',
+				controller: 'ContactController' // 定义控制器
+			})
+			.when('/list', {
+				templateUrl: './list.html', // 视图模板
+				controller: 'ListController' // 定义控制器
+			})
+			.otherwise({
+				redirectTo: '/index'
+			});
+		}]);
+
+		// 列表控制器
+		App.controller('ListController', ['$scope', '$http', function ($scope, $http) {
+			// $scope.items = ['html', 'css', 'js'];// 模型数据
+			$http({
+				url: '10-02.php',
+			}).success(function (info) {
+				$scope.items = info;
+			});
+		}]);
+
+		App.controller('ContactController', ['$scope', '$http', function ($scope, $http) {
+			$http({
+				url: 'contact.php'
+			}).success(function (info) {
+				$scope.content = info;
+			});
+		}]);
+	</script>
+</body>
+</html>
